@@ -4,6 +4,9 @@ package modelo;
  *
  * @author alvaro
  */
+
+// EN ESTA CLASE SE DEFINE LA TABLA CON LA QUE TRABAJAMOS
+
 public class ProveedoresVO {
     private int codproveedor;
     private String nomempresa;

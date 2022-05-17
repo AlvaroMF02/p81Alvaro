@@ -14,6 +14,9 @@ import java.util.List;
  *
  * @author alvaro
  */
+
+    // EN ESTA CLASE CREAREMOS LOS METODOS CON LOS QUE INTERACTUAREMOS CON LA BASE DE DATOS
+
 public class ProveedoresDAO {
     private Connection con = null;
 
@@ -153,7 +156,7 @@ public class ProveedoresDAO {
         return numFilas;
     }
 
-    public int updatePersona(int pk, ProveedoresVO nuevosDatos) throws SQLException {
+    public int updateProveedor(int pk, ProveedoresVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
         String sql = "update persona set nomempresa = ?, nomcontacto = ?, direccion = ?, ciudad = ?, codpostal = ?, telefono = ?, where codproveedor=?";
