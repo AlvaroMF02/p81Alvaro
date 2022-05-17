@@ -18,7 +18,7 @@ public class Programa {
     public static void main(String[] args) {
         
         
-        ProveedoresVO daoPersona = new ProveedoresVO();
+        ProveedoresVO daoProveedor = new ProveedoresVO();
         List<ProveedoresVO> listaPersonas = new ArrayList<>();  
         listaPersonas.add(new ProveedoresVO(8, "Los Ganados", "Alfonso Ramirez", "C/ Huelva 189", "Madrid", "45630", "528467922"));
         listaPersonas.add(new ProveedoresVO(9, "Los Perdidos", "Fernando Ortiz", "C/ Los Pinrreles 56", "Barcelona", "56432", "946735625"));
@@ -28,39 +28,48 @@ public class Programa {
         
         try {
             
-            System.out.println("Nº personas insertadas " + daoPersona.insertPersona(listaPersonas));
+            System.out.println("Nº personas insertadas " + daoProveedor.(listaPersonas));
             System.out.println("-----------------------------------------");
+            
             System.out.println("Comprobamos en una nueva lista que se recogen los datos desde la tabla.");
-            List<PersonaVO> nuevaLista = daoPersona.getAll();
+            List<PersonaVO> nuevaLista = daoProveedor.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
             nuevaLista.forEach(System.out::println);
+            
             System.out.println("-----------------------------------------");
             System.out.println("Persona con primary key 1: ");
-            System.out.println(daoPersona.findByPk(1));
+            System.out.println(daoProveedor.findByPk(1));
+            
             System.out.println("-----------------------------------------");
             System.out.println("Se va a borrar la persona con pk 3");
             System.out.println("Nº personas borradas " + 
-                    daoPersona.deletePersona(new ProveedoresVO(3,"Pablo Pérez", LocalDate.of(1997, 12, 5))));
+                    daoProveedor.deletePersona(new ProveedoresVO(3,"Pablo Pérez", LocalDate.of(1997, 12, 5))));
+            
             System.out.println("-----------------------------------------");
-            nuevaLista = daoPersona.getAll();
+            nuevaLista = daoProveedor.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D despues de borrar una persona -------------");
             nuevaLista.forEach(System.out::println);
+            
             System.out.println("-----------------------------------------");
             System.out.println("Modificación de la persona con pk 5");
             System.out.println("Nº Personas modificadas " + 
-                    daoPersona.updatePersona(5, new PersonaVO(7,"NuevoNombre", LocalDate.of(2019, 6, 5))));
+                    daoProveedor.updatePersona(5, new PersonaVO(7,"NuevoNombre", LocalDate.of(2019, 6, 5))));
+            
             System.out.println("-----------------------------------------");
-            nuevaLista = daoPersona.getAll();
+            nuevaLista = daoProveedor.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D despues de modificar una persona -------------");
             nuevaLista.forEach(System.out::println);
+            
             System.out.println("-----------------------------------------");
             System.out.println("Ejecución del procedimiento almacenado");
             System.out.println("Se cambia María Weston por Felipe Román");
-            System.out.println("Nombres cambiados " + daoPersona.cambiarNombres("Felipe Román", "Maria Weston"));
+            System.out.println("Nombres cambiados " + daoProveedor.cambiarNombres("Felipe Román", "Maria Weston"));
+            
             System.out.println("-----------------------------------------");
-            nuevaLista = daoPersona.getAll();
+            nuevaLista = daoProveedor.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D despues de ejecutar proced. -------------");
             nuevaLista.forEach(System.out::println);
+            
             System.out.println("-----------------------------------------");
         } catch (SQLException sqle) {
             System.out.println("No se ha podido realizar la operación:");
