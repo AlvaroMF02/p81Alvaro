@@ -10,17 +10,21 @@ import modelo.ProveedoresVO;
  *
  * @author alvaro
  */
+
+//realizando inserciones, borrados, modificaciones y consultas. Comenta y explica todo el código.
+
+
 public class Programa {
     public static void main(String[] args) {
         
         
-        ProveedoresVO daoPersona = new ProveedoresVO(); //cambiar a todos los mierdas estos
-        List<ProveedoresVO> listaPersonas = new ArrayList<>();
-        listaPersonas.add(new PersonaVO(1,"Hugo Weston", LocalDate.of(1997, 6, 6)));
-        listaPersonas.add(new PersonaVO(2,"Maria Weston", LocalDate.of(1967, 6, 6)));
-        listaPersonas.add(new PersonaVO(3,"Pablo Pérez", LocalDate.of(1997, 12, 5)));
-        listaPersonas.add(new PersonaVO(4,"Maria Weston", LocalDate.of(2000, 6, 5)));
-        listaPersonas.add(new PersonaVO(5,"Pedro Moreno", LocalDate.of(2001, 6, 15)));
+        ProveedoresVO daoPersona = new ProveedoresVO();
+        List<ProveedoresVO> listaPersonas = new ArrayList<>();  
+        listaPersonas.add(new ProveedoresVO(8, "Los Ganados", "Alfonso Ramirez", "C/ Huelva 189", "Madrid", "45630", "528467922"));
+        listaPersonas.add(new ProveedoresVO(9, "Los Perdidos", "Fernando Ortiz", "C/ Los Pinrreles 56", "Barcelona", "56432", "946735625"));
+        listaPersonas.add(new ProveedoresVO(10, "Los Rendidos", "Antonio Juanetes", "C/ Sa matao 34", "Valencia", "12345", "986745286"));
+        listaPersonas.add(new ProveedoresVO(11, "Los Subordinados", "Maria Roales", "Avda. Chocolatero 78", "Cadiz", "09876", "674835093"));
+        
         
         try {
             

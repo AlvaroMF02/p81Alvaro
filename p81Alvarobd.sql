@@ -8,8 +8,8 @@ CREATE TABLE `proveedores` (
   `nomcontacto` varchar(50) DEFAULT NULL,
   `direccion` varchar(60) DEFAULT NULL,
   `ciudad` varchar(20) DEFAULT NULL,
-  `codpostal` char(5) DEFAULT NULL,
-  `telefono` char(9) DEFAULT NULL,
+  `codpostal` varchar(5) DEFAULT NULL,
+  `telefono` varchar(9) DEFAULT NULL,
   PRIMARY KEY (`codproveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

@@ -10,10 +10,10 @@ public class ProveedoresVO {
     private String nomcontacto;
     private String direccion;
     private String ciudad;
-    private char codpostal;
-    private char telefono;
+    private String codpostal;
+    private String telefono;
 
-    public ProveedoresVO(int codproveedor, String nomempresa, String nomcontacto, String direccion, String ciudad, char codpostal, char telefono) {
+    public ProveedoresVO(int codproveedor, String nomempresa, String nomcontacto, String direccion, String ciudad, String codpostal, String telefono) {
         this.codproveedor = codproveedor;
         this.nomempresa = nomempresa;
         this.nomcontacto = nomcontacto;
@@ -65,25 +65,25 @@ public class ProveedoresVO {
         this.ciudad = ciudad;
     }
 
-    public char getCodpostal() {
+    public String getCodpostal() {
         return codpostal;
     }
 
-    public void setCodpostal(char codpostal) {
+    public void setCodpostal(String codpostal) {
         this.codpostal = codpostal;
     }
 
-    public char getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(char telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
     @Override
     public String toString() {
-        return "ProveedoresVO{" + "codproveedor=" + codproveedor + ", nomempresa=" + nomempresa + ", nomcontacto=" + nomcontacto + ", direccion=" + direccion + ", ciudad=" + ciudad + ", codpostal=" + codpostal + ", telefono=" + telefono + '}';
+        return "Proveedores{" + "codproveedor=" + codproveedor + ", nomempresa=" + nomempresa + ", nomcontacto=" + nomcontacto + ", direccion=" + direccion + ", ciudad=" + ciudad + ", codpostal=" + codpostal + ", telefono=" + telefono + '}';
     }
     
     

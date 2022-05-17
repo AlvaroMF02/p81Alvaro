@@ -21,7 +21,6 @@ public class ProveedoresDAO {
         con = Conexion.getInstance();
     }
 
-    @Override
     public List<ProveedoresVO> getAll() throws SQLException {
         List<ProveedoresVO> lista = new ArrayList<>();
 
@@ -29,7 +28,7 @@ public class ProveedoresDAO {
         // ya que no necesitamos parametrizar la sentencia SQL
         try (Statement st = con.createStatement()) {
             // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
-            ResultSet res = st.executeQuery("select * from persona");
+            ResultSet res = st.executeQuery("select * from proveedores");
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             while (res.next()) {
                 ProveedoresVO p = new ProveedoresVO();
@@ -39,7 +38,7 @@ public class ProveedoresDAO {
                 p.setNomcontacto(res.getString("nomcontacto"));
                 p.setDireccion(res.getString("direccion"));
                 p.setCiudad(res.getString("ciudad"));
-                p.setCodpostal(res.getcha("codpostal"));
+                p.setCodpostal(res.getString("codpostal"));
                 
                 //Añadimos el objeto a la lista
                 lista.add(p);
@@ -49,13 +48,12 @@ public class ProveedoresDAO {
         return lista;
     }
 
-    @Override
     public ProveedoresVO findByPk(int pk) throws SQLException {
 
         ResultSet res = null;
         ProveedoresVO persona = new ProveedoresVO();
 
-        String sql = "select * from persona where pk=?";
+        String sql = "select * from proveedores where codproveedor=?";
 
         try (PreparedStatement prest = con.prepareStatement(sql)) {
             // Preparamos la sentencia parametrizada
@@ -68,9 +66,12 @@ public class ProveedoresDAO {
             // si existe esa pk
             if (res.next()) {
                 // Recogemos los datos de la persona, guardamos en un objeto
-                persona.setPk(res.getInt("pk"));
-                persona.setNombre(res.getString("nombre"));
-                persona.setFechaNacimiento(res.getDate("fecha_nac").toLocalDate());
+                persona.setCodproveedor(res.getInt("codproveedor"));
+                persona.setNomempresa(res.getString("nomempresa"));
+                persona.setNomcontacto(res.getString("nomcontacto"));
+                persona.setDireccion(res.getString("direccion"));
+                persona.setCiudad(res.getString("ciudad"));
+                persona.setCodpostal(res.getString("codpostal"));
                 return persona;
             }
 
@@ -78,13 +79,12 @@ public class ProveedoresDAO {
         }
     }
 
-    @Override
-    public int insertPersona(ProveedoresVO persona) throws SQLException {
+    public int insertProveedor(ProveedoresVO proveedor) throws SQLException {
 
         int numFilas = 0;
-        String sql = "insert into persona values (?,?,?)";
+        String sql = "insert into proveedores values (?,?,?,?,?,?)";
 
-        if (findByPk(persona.getPk()) != null) {
+        if (findByPk(proveedor.getCodproveedor()) != null) {
             // Existe un registro con esa pk
             // No se hace la inserción
             return numFilas;
@@ -94,9 +94,13 @@ public class ProveedoresDAO {
             try (PreparedStatement prest = con.prepareStatement(sql)) {
 
                 // Establecemos los parámetros de la sentencia
-                prest.setInt(1, persona.getPk());
-                prest.setString(2, persona.getNombre());
-                prest.setDate(3, Date.valueOf(persona.getFechaNacimiento()));
+                prest.setInt(1, proveedor.getCodproveedor());
+                prest.setString(2, proveedor.getNomempresa());
+                prest.setString(3, proveedor.getNomcontacto());
+                prest.setString(4, proveedor.getDireccion());
+                prest.setString(5, proveedor.getCiudad());
+                prest.setString(6, proveedor.getCodpostal());
+                prest.setString(7, proveedor.getTelefono());
 
                 numFilas = prest.executeUpdate();
             }
@@ -105,21 +109,19 @@ public class ProveedoresDAO {
 
     }
 
-    @Override
-    public int insertPersona(List<ProveedoresVO> lista) throws SQLException {
+    public int insertProveedor(List<ProveedoresVO> lista) throws SQLException {
         int numFilas = 0;
 
         for (ProveedoresVO tmp : lista) {
-            numFilas += insertPersona(tmp);
+            numFilas += ProveedoresDAO.this.insertProveedor(tmp);
         }
 
         return numFilas;
     }
 
-    @Override
-    public int deletePersona() throws SQLException {
+    public int deleteProveedor() throws SQLException {
 
-        String sql = "delete from persona";
+        String sql = "delete from proveedores";
 
         int nfilas = 0;
 
@@ -135,28 +137,26 @@ public class ProveedoresDAO {
 
     }
 
-    @Override
-    public int deletePersona(ProveedoresVO persona) throws SQLException {
+    public int deletePersona(ProveedoresVO proveedor) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from persona where pk = ?";
+        String sql = "delete from proveedores where codproveedor = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
 
             // Establecemos los parámetros de la sentencia
-            prest.setInt(1, persona.getPk());
+            prest.setInt(1, proveedor.getCodproveedor());
             // Ejecutamos la sentencia
             numFilas = prest.executeUpdate();
         }
         return numFilas;
     }
 
-    @Override
     public int updatePersona(int pk, ProveedoresVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update persona set nombre = ?, fecha_nac = ? where pk=?";
+        String sql = "update persona set nomempresa = ?, nomcontacto = ?, direccion = ?, ciudad = ?, codpostal = ?, telefono = ?, where codproveedor=?";
 
         if (findByPk(pk) == null) {
             // La persona a actualizar no existe
@@ -167,9 +167,13 @@ public class ProveedoresDAO {
             try (PreparedStatement prest = con.prepareStatement(sql)) {
 
                 // Establecemos los parámetros de la sentencia
-                prest.setString(1, nuevosDatos.getNombre());
-                prest.setDate(2, Date.valueOf(nuevosDatos.getFechaNacimiento()));
-                prest.setInt(3, pk);
+                prest.setString(1, nuevosDatos.getNomempresa());
+                prest.setString(2, nuevosDatos.getNomcontacto());
+                prest.setString(3, nuevosDatos.getDireccion());
+                prest.setString(4, nuevosDatos.getCiudad());
+                prest.setString(5, nuevosDatos.getCodpostal());
+                prest.setString(6, nuevosDatos.getTelefono());
+                prest.setInt(7, pk);
 
                 numFilas = prest.executeUpdate();
             }
