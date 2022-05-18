@@ -20,6 +20,5 @@ INSERT INTO `proveedores` VALUES
 	(3,'La pescadilla','Antonio Gutierrez','C/ Calvario 34','Málaga','29017','952230000'),
 	(4,'Todotrigo','Luisa Pérez','C/ El viento, 34','Fuengirola','29015','952470000'),
 	(5,'Refrescos y bebidas Cantos','Mateo Cantos','Avda. Ischia 12','Estepona','29012','952134567'),
-	(6,'Todo del campo','Luciano Sánchez','C/ Agua 1','Málaga','29014','952610000'),
-	(7,'El matarife','Cristobal Gómez','C/ Los Sitios s/n','Marbella','29600','952770000');
-UNLOCK TABLES;
+	(6,'Todo del campo','Luciano Sánchez','C/ Agua 1','Málaga','29014','952610000');
+    UNLOCK TABLES;

@@ -75,6 +75,7 @@ public class ProveedoresDAO {
                 persona.setDireccion(res.getString("direccion"));
                 persona.setCiudad(res.getString("ciudad"));
                 persona.setCodpostal(res.getString("codpostal"));
+                persona.setCodpostal(res.getString("telefono"));
                 return persona;
             }
 
@@ -85,7 +86,7 @@ public class ProveedoresDAO {
     public int insertProveedor(ProveedoresVO proveedor) throws SQLException {
 
         int numFilas = 0;
-        String sql = "insert into proveedores values (?,?,?,?,?,?)";
+        String sql = "insert into proveedores values (?,?,?,?,?,?,?)";
 
         if (findByPk(proveedor.getCodproveedor()) != null) {
             // Existe un registro con esa pk
@@ -140,7 +141,7 @@ public class ProveedoresDAO {
 
     }
 
-    public int deletePersona(ProveedoresVO proveedor) throws SQLException {
+    public int deleteProveedor(ProveedoresVO proveedor) throws SQLException {
         int numFilas = 0;
 
         String sql = "delete from proveedores where codproveedor = ?";
@@ -159,7 +160,7 @@ public class ProveedoresDAO {
     public int updateProveedor(int pk, ProveedoresVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update persona set nomempresa = ?, nomcontacto = ?, direccion = ?, ciudad = ?, codpostal = ?, telefono = ?, where codproveedor=?";
+        String sql = "update proveedores set nomempresa = ?, nomcontacto = ?, direccion = ?, ciudad = ?, codpostal = ?, telefono = ? where codproveedor=?";
 
         if (findByPk(pk) == null) {
             // La persona a actualizar no existe
@@ -184,22 +185,4 @@ public class ProveedoresDAO {
         }
     }
 
-    public int cambiarNombres(String newName, String oldName) throws SQLException {
-
-        int res = 0;
-        // Dos ?, uno para newName y otro para oldName
-
-        String sql = "{call cambiar_nombres (?,?)}";
-
-        // Preparamos la llamada al procedimiento almacenado
-        try (CallableStatement call = con.prepareCall(sql)) {
-            // Establecemos parámetros a pasar al procedimiento
-            call.setString(1, newName);
-            call.setString(2, oldName);
-            // Ejecutamos el procedimiento
-            res = call.executeUpdate();
-            
-        }
-        return res;
-    }
 }
