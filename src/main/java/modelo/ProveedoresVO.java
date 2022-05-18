@@ -5,9 +5,10 @@ package modelo;
  * @author alvaro
  */
 
-// EN ESTA CLASE SE DEFINE LA TABLA CON LA QUE TRABAJAMOS
 
+//ATRIBUTOS
 public class ProveedoresVO {
+
     private int codproveedor;
     private String nomempresa;
     private String nomcontacto;
@@ -16,6 +17,7 @@ public class ProveedoresVO {
     private String codpostal;
     private String telefono;
 
+    //CONSTRUCTORES
     public ProveedoresVO(int codproveedor, String nomempresa, String nomcontacto, String direccion, String ciudad, String codpostal, String telefono) {
         this.codproveedor = codproveedor;
         this.nomempresa = nomempresa;
@@ -25,9 +27,11 @@ public class ProveedoresVO {
         this.codpostal = codpostal;
         this.telefono = telefono;
     }
+
     public ProveedoresVO() {
     }
 
+    //GETTER SETTER
     public int getCodproveedor() {
         return codproveedor;
     }
@@ -84,10 +88,10 @@ public class ProveedoresVO {
         this.telefono = telefono;
     }
 
+    //TOOSTRING
     @Override
     public String toString() {
-        return "Proveedores{" + "codproveedor=" + codproveedor + ", nomempresa=" + nomempresa + ", nomcontacto=" + nomcontacto + ", direccion=" + direccion + ", ciudad=" + ciudad + ", codpostal=" + codpostal + ", telefono=" + telefono + '}';
+        return "Proveedor{" + "Código= " + codproveedor + ", Empresa= " + nomempresa + ", Propietario= " + nomcontacto + ", Dirección= " + direccion + ", Ciudad= " + ciudad + ", CP= " + codpostal + ", Telefono= " + telefono + '}';
     }
-    
-    
+
 }

@@ -29,37 +29,42 @@ public class Programa {
         
         
         try {
+                        
+            //INSERCIÓN MEDIANTE UNA LISTA
+            System.out.println("________________________________________________________________________________________________________________________________");
             System.out.println("Nº proveedores insertados " + daoProveedor.insertProveedor(listaProveedores));
-            
-            System.out.println("-----------------------------------------");
-            System.out.println("Comprobamos en una nueva lista que se recogen los datos desde la tabla.");
+            System.out.println("\n________________________________________________________________________________________________________________________________");
             List<ProveedoresVO> nuevaLista = daoProveedor.getAll();
-            System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
+            System.out.println("-------------------------------- Lista con datos recogidos desde la BD --------------------------------");
             nuevaLista.forEach(System.out::println);
-            System.out.println("-----------------------------------------");
-            System.out.println("Proveedor con el codigo 1: ");
-            System.out.println(daoProveedor.findByPk(1));
-            System.out.println("-----------------------------------------");
-            System.out.println("Ahora voy a borrar el proveedor numero 10");
-            System.out.println("Nº personas borradas " + daoProveedor.deleteProveedor(new ProveedoresVO(10, "Los Rendidos", "Antonio Juanetes", "C/ Sa matao 34", "Valencia", "12345", "986745286")));
-            System.out.println("-----------------------------------------");
+            
+            
+            //CONSULTA DE DATOS
+            System.out.println("\n________________________________________________________________________________________________________________________________");
+            System.out.println("Proveedor con el codigo 8: ");
+            System.out.println(daoProveedor.findByPk(8));
+            
+            
+            
+            //BORRADO
+            System.out.println("\n________________________________________________________________________________________________________________________________");
+            System.out.println("\n El proveedor 10 será borrado");
+            System.out.println("Proveedor a borrar " + daoProveedor.deleteProveedor(new ProveedoresVO(10, "Los Rendidos", "Antonio Juanetes", "C/ Sa matao 34", "Valencia", "12345", "986745286")));
+            System.out.println("\n ---------------------------------- Nueva lista sin el proveedor 10 ----------------------------------");
             nuevaLista = daoProveedor.getAll();
-            System.out.println("-------- Lista con datos recogidos desde la B.D despues de borrar una persona -------------");
             nuevaLista.forEach(System.out::println);
-            System.out.println("-----------------------------------------");
+            
+            
+            
+            //MODIFICACIÓN
+            System.out.println("\n________________________________________________________________________________________________________________________________");
             System.out.println("Modificación del proveedor con codigo 5");
-            System.out.println("Nº proveedores modificados " +  //ERROR
-                    daoProveedor.updateProveedor(5, new ProveedoresVO(89, "Nueva Empresa", "Pepe Garrido", "C/ Poliero 45", "Madrid", "23334", "975467233")));
-            System.out.println("-----------------------------------------");
+            System.out.println("Nº proveedores modificados " + daoProveedor.updateProveedor(5, new ProveedoresVO(5, "Nueva Empresa", "Pepe Garrido", "C/ Poliero 45", "Madrid", "23334", "975467233")));
             nuevaLista = daoProveedor.getAll();
-            System.out.println("-------- Lista con datos recogidos desde la B.D despues de modificar un proveedor -------------");
+            System.out.println("-------------------------------- Lista después de modificar un proveedor --------------------------------");
             nuevaLista.forEach(System.out::println);
-            System.out.println("-----------------------------------------");
-            System.out.println("Ejecución del procedimiento almacenado");
-            nuevaLista = daoProveedor.getAll();
-            System.out.println("-------- Lista con datos recogidos desde la B.D despues de ejecutar proced. -------------");
-            nuevaLista.forEach(System.out::println);
-            System.out.println("-----------------------------------------");
+            
+
         } catch (SQLException sqle) {
             System.out.println("No se ha podido realizar la operación:");
             System.out.println(sqle.getMessage());

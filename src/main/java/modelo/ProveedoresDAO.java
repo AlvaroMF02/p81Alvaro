@@ -15,7 +15,6 @@ import java.util.List;
  * @author alvaro
  */
 
-    // EN ESTA CLASE CREAREMOS LOS METODOS CON LOS QUE INTERACTUAREMOS CON LA BASE DE DATOS
 
 public class ProveedoresDAO {
     private Connection con = null;
@@ -24,15 +23,14 @@ public class ProveedoresDAO {
         con = Conexion.getInstance();
     }
 
+    //MUESTRA TODOS LOS ELEMENTOS QUE HAY EN LA TABLA DE LA BD
     public List<ProveedoresVO> getAll() throws SQLException {
         List<ProveedoresVO> lista = new ArrayList<>();
 
-        // Preparamos la consulta de datos mediante un objeto Statement
-        // ya que no necesitamos parametrizar la sentencia SQL
         try (Statement st = con.createStatement()) {
-            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
+
             ResultSet res = st.executeQuery("select * from proveedores");
-            // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
+
             while (res.next()) {
                 ProveedoresVO p = new ProveedoresVO();
                 // Recogemos los datos de la persona, guardamos en un objeto
@@ -51,6 +49,7 @@ public class ProveedoresDAO {
         return lista;
     }
 
+    //BUSCA UN ELEMENTO POR SU CLAVE PRIMARIA
     public ProveedoresVO findByPk(int pk) throws SQLException {
 
         ResultSet res = null;
@@ -59,16 +58,12 @@ public class ProveedoresDAO {
         String sql = "select * from proveedores where codproveedor=?";
 
         try (PreparedStatement prest = con.prepareStatement(sql)) {
-            // Preparamos la sentencia parametrizada
+
             prest.setInt(1, pk);
 
-            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
             res = prest.executeQuery();
 
-            // Nos posicionamos en el primer registro del Resultset. Sólo debe haber una fila
-            // si existe esa pk
             if (res.next()) {
-                // Recogemos los datos de la persona, guardamos en un objeto
                 persona.setCodproveedor(res.getInt("codproveedor"));
                 persona.setNomempresa(res.getString("nomempresa"));
                 persona.setNomcontacto(res.getString("nomcontacto"));
@@ -83,21 +78,17 @@ public class ProveedoresDAO {
         }
     }
 
+    //INSERTA FILAS EN LA TABLA PASANDOLE TODOS LOS PARAMETROS
     public int insertProveedor(ProveedoresVO proveedor) throws SQLException {
 
         int numFilas = 0;
         String sql = "insert into proveedores values (?,?,?,?,?,?,?)";
 
         if (findByPk(proveedor.getCodproveedor()) != null) {
-            // Existe un registro con esa pk
-            // No se hace la inserción
             return numFilas;
         } else {
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
+           
             try (PreparedStatement prest = con.prepareStatement(sql)) {
-
-                // Establecemos los parámetros de la sentencia
                 prest.setInt(1, proveedor.getCodproveedor());
                 prest.setString(2, proveedor.getNomempresa());
                 prest.setString(3, proveedor.getNomcontacto());
@@ -112,7 +103,8 @@ public class ProveedoresDAO {
         }
 
     }
-
+    
+    //INSERTA FILAS EN LA TABLA PASANDOLE UNA LISTA DE OBJETOS
     public int insertProveedor(List<ProveedoresVO> lista) throws SQLException {
         int numFilas = 0;
 
@@ -123,54 +115,46 @@ public class ProveedoresDAO {
         return numFilas;
     }
 
+    //ELIMINA PROVEEDORES
     public int deleteProveedor() throws SQLException {
 
         String sql = "delete from proveedores";
 
         int nfilas = 0;
 
-        // Preparamos el borrado de datos  mediante un Statement
-        // No hay parámetros en la sentencia SQL
         try (Statement st = con.createStatement()) {
-            // Ejecución de la sentencia
             nfilas = st.executeUpdate(sql);
         }
 
-        // El borrado se realizó con éxito, devolvemos filas afectadas
         return nfilas;
 
     }
-
+    
+    //ELIMINA UNA PROVEEDOR POR SU CLAVE PRIMARIA
     public int deleteProveedor(ProveedoresVO proveedor) throws SQLException {
         int numFilas = 0;
 
         String sql = "delete from proveedores where codproveedor = ?";
 
-        // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-            // Establecemos los parámetros de la sentencia
             prest.setInt(1, proveedor.getCodproveedor());
-            // Ejecutamos la sentencia
             numFilas = prest.executeUpdate();
         }
         return numFilas;
     }
 
+    //EDITA CUALQUIER CAMPO DE UN PROVEEDOR
     public int updateProveedor(int pk, ProveedoresVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
         String sql = "update proveedores set nomempresa = ?, nomcontacto = ?, direccion = ?, ciudad = ?, codpostal = ?, telefono = ? where codproveedor=?";
 
         if (findByPk(pk) == null) {
-            // La persona a actualizar no existe
             return numFilas;
         } else {
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
             try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
                 prest.setString(1, nuevosDatos.getNomempresa());
                 prest.setString(2, nuevosDatos.getNomcontacto());
                 prest.setString(3, nuevosDatos.getDireccion());
